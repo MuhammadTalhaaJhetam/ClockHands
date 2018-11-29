@@ -41,27 +41,32 @@ public class ClockHands {
 				
 				
 				//cos@ = a/h --->h=6 ---> hcos@=a -->6cos@=a
-				double HourDegrees= ((hours%12)*30);//360 degrees/12hrs = 30 Degrees for each hour & hours% 12= hour in 12 hr format for the clock face e.g 18% 12 =6
+				double HourDegrees= (((hours+minutes/60)%12)*30);//360 degrees/12hrs = 30 Degrees for each hour & hours% 12= hour in 12 hr format for the clock face e.g 18% 12 =6
 			
 				double HourPositionY=0;
 				double HourPositionX=0;
 				
 				if(HourDegrees>90 && HourDegrees<180){
 					HourDegrees=180-HourDegrees;
-					HourPositionX= 6* Math.cos(Math.toRadians(HourDegrees))+10;
-					 HourPositionY= 6* -Math.sin(Math.toRadians(HourDegrees)) +10; 
+					HourPositionY= 6* -Math.cos(Math.toRadians(HourDegrees))+10;
+					 HourPositionX= 6* Math.sin(Math.toRadians(HourDegrees)) +10; 
 				}else if(HourDegrees>180 && HourDegrees<270){
-					HourDegrees=270-HourDegrees;
-					HourPositionX= 6* -Math.cos(Math.toRadians(HourDegrees))+10;
-					 HourPositionY= 6* -Math.sin(Math.toRadians(HourDegrees)) +10; 
+					HourDegrees=HourDegrees-180;
+				
+					HourPositionY= 6* -Math.cos(Math.toRadians(HourDegrees))+10;
+					 HourPositionX= 6* -Math.sin(Math.toRadians(HourDegrees)) +10; 
 				}else if(HourDegrees>270 && HourDegrees<360){
 					HourDegrees=360-HourDegrees;
-					HourPositionX= 6* -Math.cos(Math.toRadians(HourDegrees))+10;
-					 HourPositionY= 6* Math.sin(Math.toRadians(HourDegrees)) +10;
+					
+					HourPositionY= 6* Math.cos(Math.toRadians(HourDegrees))+10;
+					 HourPositionX= 6* -Math.sin(Math.toRadians(HourDegrees)) +10;
+				/*}else if(HourDegrees>0 && HourDegrees<90){
+					//HourDegrees=90-HourDegrees;
+					HourPositionY= 6* Math.cos(Math.toRadians(HourDegrees))+10;
+					 HourPositionX= 6* Math.sin(Math.toRadians(HourDegrees)) +10;*/
 				}else{
-					HourDegrees=90-HourDegrees;
-					HourPositionX= 6* Math.cos(Math.toRadians(HourDegrees))+10;
-					 HourPositionY= 6* Math.sin(Math.toRadians(HourDegrees)) +10;
+					HourPositionY= 6* Math.cos(Math.toRadians(HourDegrees))+10;
+					 HourPositionX= 6* Math.sin(Math.toRadians(HourDegrees)) +10;
 				}
 				
 				
@@ -75,25 +80,29 @@ public class ClockHands {
 				
 				if(MinuteDegrees>90 && MinuteDegrees<180){
 					MinuteDegrees=180-MinuteDegrees;
-					MinutePositionX= 9* Math.cos(Math.toRadians(MinuteDegrees))+10;
-					MinutePositionY= 9* -Math.sin(Math.toRadians(MinuteDegrees)) +10; 
+					MinutePositionY= 9* -Math.cos(Math.toRadians(MinuteDegrees))+10;
+					MinutePositionX= 9* Math.sin(Math.toRadians(MinuteDegrees)) +10; 
 				}else if(MinuteDegrees>180 && MinuteDegrees<270){//3rd quadrant
-					MinuteDegrees=270-MinuteDegrees;
-					MinutePositionX=9* -Math.cos(Math.toRadians(MinuteDegrees))+10;
-					MinutePositionY= 9* -Math.sin(Math.toRadians(MinuteDegrees)) +10; 
+					MinuteDegrees=MinuteDegrees-180;
+					MinutePositionY=9* -Math.cos(Math.toRadians(MinuteDegrees))+10;
+					MinutePositionX= 9* -Math.sin(Math.toRadians(MinuteDegrees)) +10; 
 				}else if(MinuteDegrees>270 &&MinuteDegrees<360){
 					MinuteDegrees=360-MinuteDegrees;
-					MinutePositionX= 9* -Math.cos(Math.toRadians(MinuteDegrees))+10;
-					MinutePositionY= 9* Math.sin(Math.toRadians(MinuteDegrees)) +10;
-				}else{
+					MinutePositionY= 9* Math.cos(Math.toRadians(MinuteDegrees))+10;
+					MinutePositionX= 9* -Math.sin(Math.toRadians(MinuteDegrees)) +10;
+				/*}else if(MinuteDegrees>0 && MinuteDegrees<90){
 					MinuteDegrees=90-MinuteDegrees;
-					MinutePositionX= 9* Math.cos(Math.toRadians(MinuteDegrees))+10;
-					MinutePositionY= 9* Math.sin(Math.toRadians(MinuteDegrees)) +10;
+					MinutePositionY= 9* Math.cos(Math.toRadians(MinuteDegrees))+10;
+					MinutePositionX= 9* Math.sin(Math.toRadians(MinuteDegrees)) +10;*/
 				}
-				timeAnswers.add(HourPositionX);
-				timeAnswers.add(HourPositionY);
-				timeAnswers.add(MinutePositionX);
-				timeAnswers.add(MinutePositionY);
+				else{
+					MinutePositionY= 9* Math.cos(Math.toRadians(MinuteDegrees))+10;
+					MinutePositionX= 9* Math.sin(Math.toRadians(MinuteDegrees)) +10;
+				}
+				timeAnswers.add(Math.round(HourPositionX*100000000d)/100000000d);
+				timeAnswers.add(Math.round(HourPositionY*100000000d)/100000000d);
+				timeAnswers.add(Math.round(MinutePositionX*100000000d)/100000000d);
+				timeAnswers.add(Math.round(MinutePositionY*100000000d)/100000000d);
 			}
 			
 			
